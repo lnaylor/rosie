@@ -146,3 +146,7 @@ pushd manage-action-stack
 source manage-action-stack_source.soar
 popd
 
+#LMN: source the ethical governor code
+pushd ethical_governor
+source ethical_governor_source.soar
+popd

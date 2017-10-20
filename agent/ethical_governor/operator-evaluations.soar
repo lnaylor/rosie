@@ -1,0 +1,39 @@
+sp {elaborate*item*eval
+	:o-support
+	(state <s> ^name selection
+				^evaluation <e>)
+	(<e> ^superoperator <i>
+			^symbolic-value <sym>)
+	(<i> -^name dummy)
+-->
+	(<i> ^evaluated <sym>)}
+
+sp {elaborate*success
+	(state <s> ^desired <d> ^constraint <c>)
+	-(<s> ^constraint (-^violated no))
+	-(<s> ^constraint (-^violated { <something> }))
+	-(<s> ^constraint (^violated { <> no <other> }))
+-->
+	(<s> ^success <d>)}
+
+sp {elaborate*failure
+	(state <s> ^constraint.violated yes
+				^desired <d>)
+-->
+	(<s> ^failure <d>)}
+
+#sp {ignore*dummy*all*evaluated
+#	(state <s> ^operator <o> +)
+#	(<o> ^name dummy -^round-two yes)
+#	-(<s> ^operator (^name { <> removed-problems <nm> } -^evaluated ) +)
+#-->
+#	(<s> ^operator <o> -)
+#	(<o> ^used yes)}
+
+#sp {ignore*dummy*all*evaluated-round2
+#	(state <s> ^operator <o> +)
+#	(<o> ^name dummy ^round-two yes)
+#	-(<s> ^operator ( -^evaluated ) +)
+#-->
+#	(<s> ^operator <o> -)
+#	(<o> ^used yes)}

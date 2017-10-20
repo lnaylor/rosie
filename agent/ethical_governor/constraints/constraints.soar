@@ -1,0 +1,6 @@
+smem --set learning on
+
+smem --add {
+	(<c> ^situation constraints ^name constraints ^labels <labels>)
+	(<labels> ^name action-labels)
+}

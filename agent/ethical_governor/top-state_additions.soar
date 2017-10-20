@@ -1,0 +1,15 @@
+#sp {elaborate*problem-space
+#	(state <s> ^name <nm>)
+#-->
+#	(<s> ^problem-space <p>
+#		^desired <d>)
+#	(<d> ^constraint-satisfied yes)
+#	(<p> ^name <nm>
+#		^default-state-copy yes
+#		^dont-copy actions)}
+
+sp {elaborate*reserved*words
+	(state <s> ^superstate nil)
+-->
+	(<s> ^reserved-words <res-words>)
+	(<res-words> ^word duplicate-of counterpart candidate candidate-parent rejected state-extras const-extras neq children-checked look-ahead)}

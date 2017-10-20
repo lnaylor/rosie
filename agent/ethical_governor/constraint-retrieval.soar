@@ -1,0 +1,218 @@
+sp {elaborate*situation
+	(state <s> ^superstate nil)
+-->
+	(<s> ^situation constraints)}
+
+sp {get*constraints
+	(state <s> ^smem.command <cmd>
+			^situation <sit>)
+-->
+	(<cmd> ^query <q> ^depth 6)
+	(<q> ^situation <sit>)}
+
+sp {elaborate*action-labels
+	(state <s> ^smem.result (^success ^retrieved <constraints>))
+	(<constraints> ^name constraints ^labels <labels>)
+-->
+	(<s> ^labels <labels>)}
+
+sp {elaborate*constraints
+	(state <s> ^smem.result (^success ^retrieved <constraints>))
+	(<constraints> ^name constraints ^constraint <single-const>)
+-->
+	(<s> ^constraint <c>)
+	(<c> ^rules <single-const>)}
+
+sp {copy*constraints*down
+	(state <s> ^name evaluate-operator
+			^top-state.constraint.rules <const>)
+-->
+	(<s> ^constraint <new-id>)
+	(<new-id> ^rules <new-const>)
+	(<new-const> ^duplicate-of <const>)}
+
+sp {copy*objects*down
+	(state <s> ^name evaluate-operator
+				^top-state.constraint <constraint>
+				^constraint <c>)
+	(<constraint> ^rules <const> ^object <obj>)
+	(<c> ^rules.duplicate-of <const>)	
+-->
+	(<c> ^object <new-id>)
+	(<new-id> ^duplicate-of <obj>)}
+
+sp {copy*neq
+	(state <s> ^name evaluate-operator
+				^top-state.constraint <constraint>
+				^constraint.rules <rules>)
+	(<constraint> ^rules <const>)
+	(<const> ^neq <neq>)
+	(<rules> ^duplicate-of <const>)
+-->
+	(<rules> ^neq <new-neq>)}
+
+sp {copy*neq-args
+	(state <s> ^name evaluate-operator
+				^top-state.constraint <constraint>
+				^constraint <c>)
+	(<c> ^rules <rules> ^object <obj>)
+	(<constraint> ^rules <const>)
+	(<rules> ^duplicate-of <const> ^neq <new-neq>)
+	(<constraint> ^rules.neq <neq>)
+	(<neq> ^arg <arg>)
+	(<obj> ^duplicate-of <arg>)
+-->
+	(<new-neq> ^arg <obj>)}
+
+sp {copy*constraint-children*level-one
+	(state <s> ^constraint <constraint>)
+	(<constraint> ^rules <c> ^object <obj>)
+	(<c> ^duplicate-of <original>)
+	(<original> ^<link> { <=> <c> <child> })
+	(<obj> ^duplicate-of <child>)
+-->
+	(<c> ^<link> <obj>)}
+
+sp {copy*constraint-children*level-one*const-num
+	(state <s> ^constraint.rules <c>)
+	(<c> ^duplicate-of <original>)
+	(<original> ^<link> { <=> 8 <child> })
+-->
+	(<c> ^<link> <child>)}
+
+sp {copy*constraint-children*level-one*const-let
+	(state <s> ^constraint.rules <c>)
+	(<c> ^duplicate-of <original>)
+	(<original> ^<link> { <=> y <child> })
+-->
+	(<c> ^<link> <child>)}
+
+sp {copy*constraint-children*level-two
+	(state <s> ^constraint <constraint>)
+	(<constraint> ^rules <c> ^object <obj>)
+	(<c> ^<link-one> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-two> { <=> <c> <g-child> })
+	(<obj> ^duplicate-of <g-child>)
+-->
+	(<child> ^<link-two> <obj>)}
+
+sp {copy*constraint-children*level-two*const-num
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-two> { <=> 8 <g-child> })
+-->
+	(<child> ^<link-two> <g-child>)}
+
+sp {copy*constraint-children*level-two*const-let
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-two> { <=> y <g-child> })
+-->
+	(<child> ^<link-two> <g-child>)}
+
+sp {copy*constraint-children*level-three
+	(state <s> ^constraint <constraint>)
+	(<constraint> ^rules <c> ^object <obj>)
+	(<c> ^<link-one>.<link-two> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-three> { <=> <c> <g-child> })
+	(<obj> ^duplicate-of <g-child>)
+-->
+	(<child> ^<link-three> <obj>)}
+
+sp {copy*constraint-children*level-three*const-num
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-three> { <=> 8 <g-child> })
+-->
+	(<child> ^<link-three> <g-child>)}
+
+sp {copy*constraint-children*level-three*const-let
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-three> { <=> y <g-child> })
+-->
+	(<child> ^<link-three> <g-child>)}
+
+sp {copy*constraint-children*level-four
+	(state <s> ^constraint <constraint>)
+	(<constraint> ^rules <c> ^object <obj>)
+	(<c> ^<link-one>.<link-two>.<link-three> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-four> { <=> <c> <g-child> })
+	(<obj> ^duplicate-of <g-child>)
+-->
+	(<child> ^<link-four> <obj>)}
+
+sp {copy*constraint-children*level-four*const-num
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two>.<link-three> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-four> { <=> 8 <g-child> })
+-->
+	(<child> ^<link-four> <g-child>)}
+
+sp {copy*constraint-children*level-four*const-let
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two>.<link-three> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-four> { <=> y <g-child> })
+-->
+	(<child> ^<link-four> <g-child>)}
+
+sp {copy*constraint-children*level-five
+	(state <s> ^constraint <constraint>)
+	(<constraint> ^rules <c> ^object <obj>)
+	(<c> ^<link-one>.<link-two>.<link-three>.<link-four> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-five> { <=> <c> <g-child> })
+	(<obj> ^duplicate-of <g-child>)
+-->
+	(<child> ^<link-five> <obj>)}
+
+sp {copy*constraint-children*level-five*const-num
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two>.<link-three>.<link-four> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-five> { <=> 8 <g-child> })
+-->
+	(<child> ^<link-five> <g-child>)}
+
+sp {copy*constraint-children*level-five*const-let
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two>.<link-three>.<link-four> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-five> { <=> y <g-child> })
+-->
+	(<child> ^<link-five> <g-child>)}
+
+sp {copy*constraint-children*level-six
+	(state <s> ^constraint <constraint>)
+	(<constraint> ^rules <c> ^object <obj>)
+	(<c> ^<link-one>.<link-two>.<link-three>.<link-four>.<link-five> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-six> { <=> <c> <g-child> })
+	(<obj> ^duplicate-of <g-child>)
+-->
+	(<child> ^<link-six> <obj>)}
+
+sp {copy*constraint-children*level-six*const-num
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two>.<link-three>.<link-four>.<link-five> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-six> { <=> 8 <g-child> })
+-->
+	(<child> ^<link-six> <g-child>)}
+
+sp {copy*constraint-children*level-six*const-let
+	(state <s> ^constraint.rules <c>)
+	(<c> ^<link-one>.<link-two>.<link-three>.<link-four>.<link-five> <child>)
+	(<child> ^duplicate-of <orig-child>)
+	(<orig-child> ^<link-six> { <=> y <g-child> })
+-->
+	(<child> ^<link-six> <g-child>)}

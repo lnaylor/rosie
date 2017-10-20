@@ -1,0 +1,22 @@
+sp {check*neq-2
+	(state <s> ^constraint <c>)
+	(<c> ^rules.neq <neq>)
+	-(<c> ^object (-^counterpart))
+	(<neq> ^arg <a1> ^arg { <> <a1> <a2> })	
+	-(<neq> ^arg { <> <a1> <> <a2> <a3> })
+	(<a1> ^candidate <cand> -^rejected <cand> ^children-checked <cand>)
+	(<a2> ^candidate { <> <cand> <cand2> } -^rejected <cand2> ^children-checked <cand2>)
+-->
+	(<neq> ^neq-satisfied yes)}
+
+sp {check*neq-3
+	(state <s> ^constraint <c>)
+	(<c> ^rules.neq <neq>)
+	-(<c> ^object (-^counterpart))
+	(<neq> ^arg <a1> ^arg { <> <a1> <a2> } ^arg { <> <a1> <> <a2> <a3> })
+	-(<neq> ^arg { <> <a1> <> <a2> <> <a3> <a4> })
+	(<a1> ^candidate <cand> -^rejected <cand> ^children-checked <cand>)
+	(<a2> ^candidate { <> <cand> <cand2> } -^rejected <cand2> ^children-checked <cand2>)
+	(<a3> ^candidate { <> <cand> <> <cand2> <cand3> } -^rejected <cand3> ^children-checked <cand3>)
+-->
+	(<neq> ^neq-satisfied yes)}

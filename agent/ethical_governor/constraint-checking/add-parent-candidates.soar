@@ -1,0 +1,51 @@
+sp {check-constraint*level-one*add-parent-candidate
+	(state <s> ^constraint <c>
+				^<one> <state-object>)
+	(<c> ^rules.<one> <const-object>)
+	(<const-object> ^candidate <state-object> -^rejected <state-object>)
+-->
+	(<const-object> ^candidate-parent top)}
+
+sp {check-constraint*level-two*add-parent-candidate
+	(state <s> ^constraint <c>
+				^<one> <state-parent>)
+	(<state-parent> ^<two> <state-object>)
+	(<c> ^rules.<one> <const-parent>)
+	(<const-parent> ^<two> <const-object>)
+
+	(<const-object> ^candidate <state-object> -^rejected <state-object>)
+-->
+	(<const-object> ^candidate-parent <state-parent>)}
+
+sp {check-constraint*level-three*add-parent-candidate
+	(state <s> ^constraint <c>
+				^<one>.<two> <state-parent>)
+	(<state-parent> ^<three> <state-object>)
+	(<c> ^rules.<one>.<two> <const-parent>)
+	(<const-parent> ^<three> <const-object>)
+
+	(<const-object> ^candidate <state-object> -^rejected <state-object>)
+-->
+	(<const-object> ^candidate-parent <state-parent>)}
+
+sp {check-constraint*level-four*add-parent-candidate
+	(state <s> ^constraint <c>
+				^<one>.<two>.<three> <state-parent>)
+	(<state-parent> ^<four> <state-object>)
+	(<c> ^rules.<one>.<two>.<three> <const-parent>)
+	(<const-parent> ^<four> <const-object>)
+
+	(<const-object> ^candidate <state-object> -^rejected <state-object>)
+-->
+	(<const-object> ^candidate-parent <state-parent>)}
+
+sp {check-constraint*level-five*add-parent-candidate
+	(state <s> ^constraint <c>
+				^<one>.<two>.<three>.<four> <state-parent>)
+	(<state-parent> ^<five> <state-object>)
+	(<c> ^rules.<one>.<two>.<three>.<four> <const-parent>)
+	(<const-parent> ^<five> <const-object>)
+
+	(<const-object> ^candidate <state-object> -^rejected <state-object>)
+-->
+	(<const-object> ^candidate-parent <state-parent>)}

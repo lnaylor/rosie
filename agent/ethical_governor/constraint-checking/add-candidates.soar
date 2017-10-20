@@ -1,0 +1,115 @@
+sp {check-constraint*level-one*add-candidate
+	(state <s> ^name evaluate-operator 
+				^constraint <c>
+				^<one> <state-object>)
+	(<c> ^rules.<one> <const-object>)
+	
+	-{(<const-object> ^<child> { <=> <c> <object> })
+	-(<s> ^top-state.reserved-words.word <child>)
+	(<state-object> -^<child> <object2>)}
+
+	-{(<const-object> ^<child2> { <=> yes <non-num-constant> })
+	-(<s> ^top-state.reserved-words.word <child2>)
+	(<state-object> -^<child2> <non-num-constant>)}
+
+	-{(<const-object> ^<child3> { <=> 4 <int> })
+	-(<s> ^top-state.reserved-words.word <child3>)
+	(<state-object> -^<child3> <int>)}
+-->
+	(<const-object> ^candidate <state-object>)}
+
+sp {check-constraint*level-two*add-candidate
+	(state <s> ^name evaluate-operator 
+				^constraint <c>
+				^<one> <state-parent>)
+	(<state-parent> ^<two> <state-object>)
+	(<c> ^rules.<one> <const-parent>)
+	(<const-parent> ^<two> <const-object>)
+
+	-{(<const-object> ^<child> { <=> <c> <object> })
+	-(<s> ^top-state.reserved-words.word <child>)
+	(<state-object> -^<child> <object2>)}
+
+	-{(<const-object> ^<child2> { <=> yes <non-num-constant> })
+	-(<s> ^top-state.reserved-words.word <child2>)
+	(<state-object> -^<child2> <non-num-constant>)}
+
+	-{(<const-object> ^<child3> { <=> 4 <int> })
+	-(<s> ^top-state.reserved-words.word <child3>)
+	(<state-object> -^<child3> <int>)}
+
+	(<const-parent> ^candidate <state-parent> -^rejected <state-parent>)
+-->
+	(<const-object> ^candidate <state-object>)}
+
+sp {check-constraint*level-three*add-candidate
+	(state <s> ^name evaluate-operator 
+				^constraint <c>
+				^<one>.<two> <state-parent>)
+	(<state-parent> ^<three> <state-object>)
+	(<c> ^rules.<one>.<two> <const-parent>)
+	(<const-parent> ^<three> <const-object>)
+
+	-{(<const-object> ^<child> { <=> <c> <object> })
+	-(<s> ^top-state.reserved-words.word <child>)
+	(<state-object> -^<child> <object2>)}
+
+	-{(<const-object> ^<child2> { <=> yes <non-num-constant> })
+	-(<s> ^top-state.reserved-words.word <child2>)
+	(<state-object> -^<child2> <non-num-constant>)}
+
+	-{(<const-object> ^<child3> { <=> 4 <int> })
+	-(<s> ^top-state.reserved-words.word <child3>)
+	(<state-object> -^<child3> <int>)}
+
+	(<const-parent> ^candidate <state-parent> -^rejected <state-parent>)
+-->
+	(<const-object> ^candidate <state-object>)}
+
+sp {check-constraint*level-four*add-candidate
+	(state <s> ^name evaluate-operator 
+				^constraint <c>
+				^<one>.<two>.<three> <state-parent>)
+	(<state-parent> ^<four> <state-object>)
+	(<c> ^rules.<one>.<two>.<three> <const-parent>)
+	(<const-parent> ^<four> <const-object>)
+
+	-{(<const-object> ^<child> { <=> <c> <object> })
+	-(<s> ^top-state.reserved-words.word <child>)
+	(<state-object> -^<child> <object2>)}
+
+	-{(<const-object> ^<child2> { <=> yes <non-num-constant> })
+	-(<s> ^top-state.reserved-words.word <child2>)
+	(<state-object> -^<child2> <non-num-constant>)}
+
+	-{(<const-object> ^<child3> { <=> 4 <int> })
+	-(<s> ^top-state.reserved-words.word <child3>)
+	(<state-object> -^<child3> <int>)}
+
+	(<const-parent> ^candidate <state-parent> -^rejected <state-parent>)
+-->
+	(<const-object> ^candidate <state-object>)}
+
+sp {check-constraint*level-five*add-candidate
+	(state <s> ^name evaluate-operator 
+				^constraint <c>
+				^<one>.<two>.<three>.<four> <state-parent>)
+	(<state-parent> ^<five> <state-object>)
+	(<c> ^rules.<one>.<two>.<three>.<four> <const-parent>)
+	(<const-parent> ^<five> <const-object>)
+
+	-{(<const-object> ^<child> { <=> <c> <object> })
+	-(<s> ^top-state.reserved-words.word <child>)
+	(<state-object> -^<child> <object2>)}
+
+	-{(<const-object> ^<child2> { <=> yes <non-num-constant> })
+	-(<s> ^top-state.reserved-words.word <child2>)
+	(<state-object> -^<child2> <non-num-constant>)}
+
+	-{(<const-object> ^<child3> { <=> 4 <int> })
+	-(<s> ^top-state.reserved-words.word <child3>)
+	(<state-object> -^<child3> <int>)}
+
+	(<const-parent> ^candidate <state-parent> -^rejected <state-parent>)
+-->
+	(<const-object> ^candidate <state-object>)}
