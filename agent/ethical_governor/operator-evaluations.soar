@@ -1,26 +1,45 @@
 sp {elaborate*item*eval
 	:o-support
-	(state <s> ^name selection
+	(state <s> ^name governor-selection
 				^evaluation <e>)
 	(<e> ^superoperator <i>
 			^symbolic-value <sym>)
 	(<i> -^name dummy)
 -->
-	(<i> ^evaluated <sym>)}
+	(<i> ^eval <sym>)}
+
+sp {elaborate*evaluated
+	:o-support
+	(state <s> ^operator <o> +)
+	(<o> ^eval <sym>)
+-->
+	(<o> ^evaluated <sym>)}
 
 sp {elaborate*success
-	(state <s> ^desired <d> ^constraint <c>)
+	(state <s> ^name evaluate-operator ^constraint <c> ^superstate <ss>)
+	(<ss> ^name governor-selection ^operator <o>)
+	(<o> ^name evaluate-operator ^evaluation <e>)
 	-(<s> ^constraint (-^violated no))
 	-(<s> ^constraint (-^violated { <something> }))
 	-(<s> ^constraint (^violated { <> no <other> }))
 -->
-	(<s> ^success <d>)}
+	(<e> ^symbolic-value success)}
 
 sp {elaborate*failure
 	(state <s> ^constraint.violated yes
-				^desired <d>)
+				^name evaluate-operator ^superstate <ss>)
+	(<ss> ^name governor-selection ^operator <o>)
+	(<o> ^name evaluate-operator ^evaluation <e>)
 -->
-	(<s> ^failure <d>)}
+	(<e> ^symbolic-value failure)}
+
+sp {pop*failed*actions
+	(state <s> ^operator <o> +)
+	(<s> ^action-stack <as>)
+	(<o> ^evaluated failure ^action <a>)
+	(<as> ^changes <c>)
+-->
+	(<c> ^pop <a>)}
 
 #sp {ignore*dummy*all*evaluated
 #	(state <s> ^operator <o> +)

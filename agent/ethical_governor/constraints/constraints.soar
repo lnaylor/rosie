@@ -1,6 +1,14 @@
 smem --set learning on
 
 smem --add {
-	(<c> ^situation constraints ^name constraints ^labels <labels>)
+	(<c> ^situation constraints ^name constraints ^labels <labels> ^constraint <c01>)
 	(<labels> ^name action-labels)
+	
+#	(<c01> ^test false)	
+#	(<c01> ^top-state <ts>)
+	(<c01> ^world <w>)
+	(<w> ^objects <objs>)
+	(<objs> ^object <o>)
+	(<o> ^handle box1_1 ^predicates <p>)
+	(<p> ^color red1 ^arm-status grabbed)
 }

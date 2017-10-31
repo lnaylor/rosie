@@ -6,11 +6,11 @@ SOAR_ID 3
 SOAR_ID 4
 ENUMERATION 5 1 state
 ENUMERATION 6 1 nil
-ENUMERATION 7 1 selection
+ENUMERATION 7 1 governor-selection
 ENUMERATION 8 1 initialize-selection
 SOAR_ID 9
 ENUMERATION 10 1 state
-ENUMERATION 11 1 selection
+ENUMERATION 11 1 governor-selection
 SOAR_ID 12
 ENUMERATION 13 1 true
 ENUMERATION 14 2 indifferent not-indifferent

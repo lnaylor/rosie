@@ -6,6 +6,7 @@ sp {action*state*no-change*elaborate*name*execute*SNC*elaborate*name*action-exec
          ^problem-space.name action
          ^action-operator <aop>)
    (<aop> ^name <action-name>)
+	-(<oop> ^simulated yes) #LMN
 -->
    (<s> ^name action-state-no-change
         ^default-problem-space no

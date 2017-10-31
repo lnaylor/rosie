@@ -1,12 +1,14 @@
 sp {add*objects*level-one
 	(state <s> ^constraint <c>)
 	(<c> ^rules.{ <> duplicate-of <> neq <one> } { <=> <c> <const-object> })
+	-(<s> ^top-state.reserved-words.word <one>)
 -->
 	(<c> ^object <const-object>)}
 
 sp {add*objects*level-two
 	(state <s> ^constraint <c>)
 	(<c> ^rules.{ <> duplicate-of <> neq <one> }.<two> { <=> <c> <const-object> })
+	-(<s> ^top-state.reserved-words.word <one>)
 	-(<s> ^top-state.reserved-words.word <two>)
 -->
 	(<c> ^object <const-object>)}
@@ -14,6 +16,7 @@ sp {add*objects*level-two
 sp {add*objects*level-three
 	(state <s> ^constraint <c>)
 	(<c> ^rules.{ <> duplicate-of <> neq <one> }.<two>.<three> { <=> <c> <const-object> })
+	-(<s> ^top-state.reserved-words.word <one>)
 	-(<s> ^top-state.reserved-words.word <two>)
 	-(<s> ^top-state.reserved-words.word <three>)
 -->
@@ -22,6 +25,7 @@ sp {add*objects*level-three
 sp {add*objects*level-four
 	(state <s> ^constraint <c>)
 	(<c> ^rules.{ <> duplicate-of <> neq <one> }.<two>.<three>.<four> { <=> <c> <const-object> })
+	-(<s> ^top-state.reserved-words.word <one>)
 	-(<s> ^top-state.reserved-words.word <two>)
 	-(<s> ^top-state.reserved-words.word <three>)
 	-(<s> ^top-state.reserved-words.word <four>)
@@ -31,9 +35,22 @@ sp {add*objects*level-four
 sp {add*objects*level-five
 	(state <s> ^constraint <c>)
 	(<c> ^rules.{ <> duplicate-of <> neq <one> }.<two>.<three>.<four>.<five> { <=> <c> <const-object> })
+	-(<s> ^top-state.reserved-words.word <one>)
 	-(<s> ^top-state.reserved-words.word <two>)
 	-(<s> ^top-state.reserved-words.word <three>)
 	-(<s> ^top-state.reserved-words.word <four>)
 	-(<s> ^top-state.reserved-words.word <five>)
+-->
+	(<c> ^object <const-object>)}
+
+sp {add*objects*level-six
+	(state <s> ^constraint <c>)
+	(<c> ^rules.{ <> duplicate-of <> neq <one> }.<two>.<three>.<four>.<five>.<six> { <=> <c> <const-object> })
+	-(<s> ^top-state.reserved-words.word <one>)
+	-(<s> ^top-state.reserved-words.word <two>)
+	-(<s> ^top-state.reserved-words.word <three>)
+	-(<s> ^top-state.reserved-words.word <four>)
+	-(<s> ^top-state.reserved-words.word <five>)
+	-(<s> ^top-state.reserved-words.word <six>)
 -->
 	(<c> ^object <const-object>)}

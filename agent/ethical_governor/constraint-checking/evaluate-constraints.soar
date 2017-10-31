@@ -25,16 +25,16 @@ sp {check*equalities
 	(<obj> ^rejected <cand>)}
 
 sp {elaborate*counterpart*yes
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss>)
-	(<ss> ^constraint <c>)
+	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+	(<ss> ^name evaluate-operator ^constraint <c>)
 	(<c> ^object <obj>)
 	(<obj> ^candidate <cand> -^rejected <cand> ^children-checked <cand>)
 -->
 	(<obj> ^counterpart yes)}
 
 sp {elaborate*counterpart*no
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss>)
-	(<ss> ^constraint <c>)
+	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+	(<ss> ^name evaluate-operator ^constraint <c>)
 	(<c> ^object <obj>)
 	-{(<obj> ^candidate <cand>)
 	  (<obj> -^rejected <cand>)
@@ -42,69 +42,114 @@ sp {elaborate*counterpart*no
 -->
 	(<obj> ^counterpart no)}
 
-sp {elaborate*match
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss>)
-	(<ss> ^constraint <c>)
+sp {elaborate*match*at-least*one*object
+	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+	(<ss> ^constraint <c> ^name evaluate-operator)
+	(<c> ^object <obj>)
 	-(<c> ^object (-^counterpart))
 	-(<c> ^object (-^counterpart yes))
 	-(<c> ^rules (^neq (-^neq-satisfied yes)))
 -->
 	(<c> ^violated yes)}
 
-sp {elaborate*unknown*need-radar*no-neq
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status off)
-	(<ss> ^constraint <c>) 
+sp {elaborate*match*no-objects
+	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+	(<ss> ^name evaluate-operator)
+	(<ss> ^constraint <c>)
+	(<c> -^object <obj>)
+	-{(<c> ^rules.<name> <anything>)
+		-(<s> ^top-state.reserved-words.word <name>)
+		(<ss> -^<name> <anything>)}
+-->
+	(<c> ^violated yes)}
+
+#sp {elaborate*unknown*need-radar*no-neq
+#	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status off)
+#	(<ss> ^constraint <c>) 
+#	-(<c> ^object (-^counterpart))
+#	(<c> ^object (-^counterpart yes))
+#-->
+#	(<ss> ^unpause yes)
+#	(<ss> ^need-more-information yes)}
+#
+#sp {elaborate*unknown*need-radar*with-neq
+#	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status off)
+#	(<ss> ^constraint <c>) 
+#	(<c> ^rules (^neq (-^neq-satisfied yes)))
+#	-(<c> ^object (-^counterpart))
+#-->
+#	(<ss> ^unpause yes)
+#	(<ss> ^need-more-information yes)}
+
+#sp {apply*need-more-information
+#	(state <s> ^need-more-information yes)
+#-->
+#	(<s> ^operator <o> + > =)
+#	(<o> ^name turn-on-radar ^actions <a> ^approved yes ^simulated yes)
+#	(<a> ^radar.switch on ^radar-power.setting 5)}
+
+sp {elaborate*action*simulation*complete
+	(state <s> ^evaluate-state <ss> ^impasse no-change ^attribute state ^superstate <super>)
+	(<ss> ^action-operator <ao> ^copy-action <ca>)
+	(<super> ^action-operator <ao>)
+-->
+	(<ss> ^action-completed yes)}
+
+#sp {elaborate*unknown*violation*no-objects
+#	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+#	(<ss> ^constraint <c> ^action-copied yes)
+#	-(<c> ^object <obj>)
+#	(<c> ^rules.<name> <something>)
+#	-(<ss> ^<name> <something>)
+#	(<ss> ^operator <o> +)
+##	-{(<ss> ^operator (<op> ^simulated yes) +)
+##		-(<ss> ^operator <op>)}
+#-->
+#	(<ss> ^unpause yes)}
+#	
+#sp {elaborate*unknown*violation*at-least*one*object
+#	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+#	(<ss> ^constraint <c> ^action-copied yes)
+#	(<c> ^object <obj>)
+#	-(<c> ^object (-^counterpart))
+#	(<c> ^object (-^counterpart yes))
+#	(<ss> ^operator <o> +)
+#-->
+#	(<ss> ^unpause yes)}
+
+#sp {elaborate*unknown*violation*with-neq
+#	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+#	(<ss> ^constraint <c>) 
+#	-(<c> ^object (-^counterpart))
+#	(<c> ^rules (^neq (-^neq-satisfied yes)))
+#	(<ss> ^operator (-^actions) +)
+#-->
+#	(<ss> ^unpause yes)}
+
+sp {elaborate*success*at-least-one*object
+	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+	(<ss> ^constraint <c> ^action-completed yes)
+	(<c> ^object <obj>)
 	-(<c> ^object (-^counterpart))
 	(<c> ^object (-^counterpart yes))
+	-{(<ss> ^operator (<op> ^simulated yes) +)
+		-(<ss> ^operator <op>)}
 -->
-	(<ss> ^unpause yes)
-	(<ss> ^need-more-information yes)}
+	(<c> ^violated no)}
 
-sp {elaborate*unknown*need-radar*with-neq
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status off)
-	(<ss> ^constraint <c>) 
-	(<c> ^rules (^neq (-^neq-satisfied yes)))
-	-(<c> ^object (-^counterpart))
--->
-	(<ss> ^unpause yes)
-	(<ss> ^need-more-information yes)}
-
-sp {apply*need-more-information
-	(state <s> ^need-more-information yes)
--->
-	(<s> ^operator <o> + > =)
-	(<o> ^name turn-on-radar ^actions <a> ^approved yes ^simulated yes)
-	(<a> ^radar.switch on ^radar-power.setting 5)}
-
-sp {elaborate*unknown*violation
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status on)
-	(<ss> ^constraint <c>) 
-	-(<c> ^object (-^counterpart))
-	(<c> ^object (-^counterpart yes))
-	(<ss> ^operator (-^actions) +)
--->
-	(<ss> ^unpause yes)}
-
-sp {elaborate*unknown*violation*with-neq
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status on)
-	(<ss> ^constraint <c>) 
-	-(<c> ^object (-^counterpart))
-	(<c> ^rules (^neq (-^neq-satisfied yes)))
-	(<ss> ^operator (-^actions) +)
--->
-	(<ss> ^unpause yes)}
-
-sp {violation*unknown-success
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status on)
-	(<ss> ^constraint <c>) 
-	-(<c> ^object (-^counterpart))
-	(<c> ^object (-^counterpart yes))
-	-(<ss> ^operator (-^actions ^simulated yes) +)
+sp {elaborate*success*no*objects
+	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
+	(<ss> ^constraint <c> ^action-completed yes)
+	-(<c> ^object <obj>)
+	(<c> ^rules.<name> <something>)
+	-(<ss> ^<name> <something>)
+	-{(<ss> ^operator (<op> ^simulated yes) +)
+		-(<ss> ^operator <op>)}
 -->
 	(<c> ^violated no)}
 
 sp {violation*unknown-success*with-neq
-	(state <s> ^impasse no-change ^attribute state ^superstate <ss> ^io.input-link.radar-status on)
+	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
 	(<ss> ^constraint <c>) 
 	-(<c> ^object (-^counterpart))
 	(<c> ^rules (^neq (-^neq-satisfied yes)))
@@ -120,7 +165,12 @@ sp {unpause
 	(<s> ^pause yes -)}
 
 sp {record-op
-	(state <s> ^superstate.name selection ^operator <o>)
+	(state <s> ^superstate.name governor-selection ^operator <o>)
+-->
+	(<s> ^pause yes)}
+
+sp {record-op*2
+	(state <s> ^superstate.name governor-selection ^copy-action <ca> -^action-operator)
 -->
 	(<s> ^pause yes)}
 
