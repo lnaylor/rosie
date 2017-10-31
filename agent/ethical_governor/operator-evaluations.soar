@@ -33,14 +33,6 @@ sp {elaborate*failure
 -->
 	(<e> ^symbolic-value failure)}
 
-sp {pop*failed*actions
-	(state <s> ^operator <o> +)
-	(<s> ^action-stack <as>)
-	(<o> ^evaluated failure ^action <a>)
-	(<as> ^changes <c>)
--->
-	(<c> ^pop <a>)}
-
 #sp {ignore*dummy*all*evaluated
 #	(state <s> ^operator <o> +)
 #	(<o> ^name dummy -^round-two yes)

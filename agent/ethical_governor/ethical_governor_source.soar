@@ -2,6 +2,7 @@ source block_operators.soar
 source constraint-retrieval.soar
 source operator-evaluations.soar
 source top-state_additions.soar
+source rosie_additions.soar
 
 pushd constraint-checking
 source add-candidates.soar

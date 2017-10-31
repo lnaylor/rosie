@@ -1,18 +1,3 @@
-#sp {elaborate*problem-space
-#	(state <s> ^name <nm>)
-#-->
-#	(<s> ^problem-space <p>
-#		^desired <d>)
-#	(<d> ^constraint-satisfied yes)
-#	(<p> ^name <nm>
-#		^default-state-copy yes
-#		^dont-copy actions)}
-
-#sp {elaborate*desired
-#	(state <s> ^name evaluate-operator ^superstate.name governor-selection)
-#-->
-#	(<s> ^desired <d>)}
-
 sp {elaborate*reserved*words
 	(state <s> ^superstate nil)
 -->

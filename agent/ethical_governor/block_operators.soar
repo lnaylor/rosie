@@ -29,7 +29,7 @@ sp {force*conflict
 	(state <s> ^operator <dum> +
 				^operator <o> +
 				^top-state.labels <labels>)
-	(<dum> ^name dummy -^used yes -^round-two yes)
+	(<dum> ^name dummy)
 	(<o> ^needs-evaluation yes)
 -->
 	(<s> ^operator <dum> > <o>
@@ -64,16 +64,7 @@ sp {approve*if*success
 #-->
 #	(<s> ^operator <o> -)}
 
-#block any operators without actions while other operators are being evaluated
-sp {wait*on*internal*while*evaluating
-	(state <s> ^operator <o> +
-				^operator { <> <o> <o2> } +)
-	(<o2> -^evaluated ^approved evaluating)
-	(<o> -^actions -^name dummy)
--->
-	(<s> ^operator <o> -)}
-
-sp {wait*to*approve*successes
+sp {wait*to*approve*auto-successes
 	(state <s> ^operator <o> +
 				^operator { <> <o> <o2> } +)
 	(<o2> -^evaluated ^actions <a>)
@@ -100,130 +91,3 @@ sp {remove-evaluation
 	(<o> ^changed yes -)
 	(<o> ^rejected yes -)
 	(<o> ^evaluated failure -)}	
-
-sp {governor*elaborate*problem-space
-	(state <s> ^name governor-selection)
--->
-	(<s> ^problem-space <ps>)
-	(<ps> ^name action
-			^world <world>
-			^action <action>)}
-
-sp {evaluate-operator*deep-copy-world
-	(state <s> ^name evaluate-operator ^superstate.name governor-selection ^top-state.world <w>)
--->
-	(<s> ^deep-copy-world <dcw>)
-	(<dcw> ^source <w>)}
-
-sp {governor-problem-space*elaborate*copy-action
-	(state <s> ^name evaluate-operator
-				^problem-space <ps>
-				^superstate.operator.superoperator.action.execution-operator <op>
-				^deep-copy-world.copy-objects-map <map>)
-	(<ps> ^name action
-			-^action-space waypoint-search)
--->
-	(<s> ^copy-action <ca>)
-	(<ca> ^source-action <op>
-			^destination <s>
-			^copy-name action-operator
-			^object-map <map>)}
-
-sp {copy*deep-copy*world
-	(state <s> ^deep-copy-world.copy <copy> ^name evaluate-operator ^superstate.name governor-selection)
--->
-	(<s> ^world <copy>)}
-
-sp {governor*propose*simulated-action
-	(state <s> ^superstate.name governor-selection ^name evaluate-operator ^action-operator <op>)
--->
-	(<s> ^operator <op> +)
-	(<op> ^simulated yes)}
-
-								
-
-#sp {need*dummy*round2
-#	:o-support
-#	(state <s> ^operator <o> +
-#				-^name evaluate-operator
-#				^top-state.labels <labels>	
-#				^impasse no-change ^attribute operator)
-#	(<o> ^actions (<act> -^approved yes) ^name removed-problems)
-#	(<act> ^{ <> approved <action-name> } <anything>)
-#	(<labels> -^<action-name> ok)
-#-->
-#	(<s> ^need-dummy-again yes)}
-
-
-#If an operator fails and has any problematic actions, remove those actions
-#sp {remove-problems
-#	:o-support
-#	(state <s> ^operator <o> + ^top-state.labels <labels> ^operator <dum> +)
-#	(<dum> ^name dummy ^used yes)
-#	(<o> ^evaluated failure ^actions <a>)
-#	(<labels> ^name action-labels ^<action-name> problem)
-#	(<a> ^<action-name> <anything>)
-#-->
-#	(<o> ^changed yes)
-#	(<a> ^<action-name> <anything> -)}
-
-
-
-#Once an operator's problem actions are removed, rename the operator and get rid of its rejected and evaluated statuses
-#sp {rename-operators
-#	:o-support
-#	(state <s> ^operator <o> + ^operator <dum> +)
-#	(<o> ^evaluated failure ^changed yes ^name <name> ^actions <a> ^rejected yes)
-#	(<dum> ^name dummy ^used yes)
-#-->
-#	(<o> ^rejected yes -)
-#	(<o> ^evaluated failure -)
-#	(<o> ^name <name> -)
-#	(<o> ^name removed-problems)}
-
-#sp {rename-operators
-#	:o-support
-#	(state <s> ^operator <o> +)
-#	-{(<s> ^operator (<o2> -^evaluated failure) +)
-#	(<o2> ^name removed-problems)}	
-#	(<o> ^evaluated failure ^changed yes ^name <name> ^actions <a> ^rejected yes)
-#-->
-#	(<o> ^rejected yes -)
-#	(<o> ^evaluated failure -)
-#	(<o> ^name <name> -)
-#	(<o> ^name removed-problems)}
-
-#sp {wait*while*evaluating*round-autosuccess-round2
-#	(state <s> ^operator <o> +
-#				^operator { <> <o> <o2> } +)
-#	(<o2> ^changed yes -^name removed-problems)
-#	(<o> ^evaluated success ^name removed-problems)
-#-->
-#	(<s> ^operator <o> -)}
-#
-#
-#sp {propose*dummy*round2
-#	(state <s> ^need-dummy-again yes)
-#-->
-#	(<s> ^operator <o> +)
-#	(<o> ^name dummy
-#		^actions <a>
-#		^round-two yes
-#		^evaluated failure)}
-#
-#				
-#sp {force*conflict*round2
-#	(state <s> ^operator <o> +
-#				^operator <o2> +
-#				^top-state.labels <labels>)
-#	(<labels> ^name action-labels) 
-#	(<o> ^name dummy ^actions <a> -^used yes ^round-two yes)
-#	(<o2> ^actions <a2>
-#		-^name dummy ^name removed-problems)
-#	(<a2> ^{ <> approved <action-name> } <anything>)
-#	(<labels> -^<action-name> ok)
-#-->
-#	(<s> ^operator <o> > <o2>
-#		^operator <o> < <o2>)
-#	(<a> ^approved yes)
-#	(<a2> ^approved for-now)}
