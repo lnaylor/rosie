@@ -6,9 +6,15 @@ smem --add {
 	
 #	(<c01> ^test false)	
 #	(<c01> ^top-state <ts>)
+
 	(<c01> ^world <w>)
-	(<w> ^objects <objs>)
-	(<objs> ^object <o>)
-	(<o> ^handle box1_1 ^predicates <p>)
-	(<p> ^color red1 ^arm-status grabbed)
+	
+	(<w> ^robot <r>)
+	(<r> ^ current-location <loc>)
+	(<loc> ^handle loc-kitchen1)
+
+#	(<w> ^objects <objs>)
+#	(<objs> ^object <o>)
+#	(<o> ^handle box1_1 ^predicates <p>)
+#	(<p> ^color red1 ^arm-status grabbed)
 }
