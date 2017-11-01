@@ -118,6 +118,8 @@ public class AgentMessageParser
          return translateCommandFailure(fieldsId);
        } else if(type.equals("action-failure")){
          return translateActionFailure(fieldsId);
+	   } else if(type.equals("unsatisfied-goal")){
+		   return translateUnsatisfiedGoal(fieldsId);
        } else if(type.equals("missing-object-failure")){
           return translateMissingObjectFailure(fieldsId);
        } else if(type.equals("invalid-argument-failure")){
@@ -560,6 +562,17 @@ public class AgentMessageParser
 		return "The " + command + " command failed while doing " + action;
 	}	
 
+	public static String translateUnsatisfiedGoal(Identifier fieldsId){
+		String action = SoarUtil.getValueOfAttribute(fieldsId, "action-handle").replaceAll("\\d", "");
+
+		if(action == null){
+			return "I was not able to achieve the goal of the action";
+		}
+		
+		return "I could not achieve the goal of " + action;
+	}	
+	
+
 	public static String translateCommandFailure(Identifier fieldsId){
 		String action = SoarUtil.getValueOfAttribute(fieldsId, "action-handle").replaceAll("\\d", "");
 		String command = SoarUtil.getValueOfAttribute(fieldsId, "command-name").replaceAll("\\d", "");
@@ -607,7 +620,12 @@ public class AgentMessageParser
                return objectDesc + " is missing the " + missingprop + " property";
             }
          }
-      } else {
+      } else if(subtype != null && subtype.equals("missing-argument")){
+		  String argName = SoarUtil.getValueOfAttribute(fieldsId, "missing-argument");
+		  if (action != null && argName != null){
+			  return "The " + action + " action was missing a " + argName + " argument";
+		  }
+	  } else {
 		   String argname = SoarUtil.getValueOfAttribute(fieldsId, "argument-name");
          if(action != null && argname != null){
             return "The " + argname + " argument of the " + action + " action was invalid";

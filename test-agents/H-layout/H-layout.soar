@@ -4,13 +4,8 @@ sp {top-state*perception-monitor*predicate-monitor*elaborate*default*predicates
 -->
    (<preds> ^predicate <inp>)
    (<inp> ^handle in1)
-}
 
-sp {top-state*elaborate*agent-params*simluate-perception*true
-   (state <s> ^superstate nil
-              ^agent-params <p>)
-   (<p> ^domain internal)
--->
-   (<p> ^simulate-perception true)
+   (<preds> ^predicate <hp>)
+   (<hp> ^handle holding1)
 }
 
