@@ -1,7 +1,7 @@
 sp {elaborate*situation
 	(state <s> ^superstate nil)
 -->
-	(<s> ^situation constraints)}
+	(<s> ^situation rosie)}
 
 sp {get*constraints
 	(state <s> ^smem.command <cmd>

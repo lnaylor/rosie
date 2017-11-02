@@ -1,7 +1,7 @@
 smem --set learning on
 
 smem --add {
-	(<c> ^situation constraints ^name constraints ^labels <labels> ^constraint <c01>)
+	(<c> ^situation rosie ^name constraints ^labels <labels> ^constraint <c01>)
 	(<labels> ^name action-labels)
 	
 #	(<c01> ^test false)	

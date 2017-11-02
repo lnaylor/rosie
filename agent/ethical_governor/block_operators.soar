@@ -1,10 +1,10 @@
-# if an operator is proposed that has an unapproved set of actions, reject the operator
+# if an execute-action operator is proposed that has not been approved, reject the operator
 sp {block*unchecked-operator
 	(state <s> ^operator (<o> ^name execute-action -^approved) +)
 -->
 	(<s> ^operator <o> -)}
 
-#If there is a proposed operator with an unapproved set of actions, flag need for dummy operator
+#If there is a proposed execute-action operator that hasn't been evaluated, flag need for dummy operator
 sp {need*dummy
 	(state <s> ^operator <o> +
 				-^name evaluate-operator
@@ -24,13 +24,11 @@ sp {propose*dummy
 		^evaluated failure)}
 
 ##set the dummy operator to be better and worse than all operators
-##approve the actions of the operator - if it is found to violate constraints, it will trigger a failure, which will reject it
+##approve the operator so the conflict will trigger an impasse - 
+#if it is found to violate constraints, it will evaluate as a failure, which will reject it
 sp {force*conflict
-	(state <s> ^operator <dum> +
-				^operator <o> +
-				^top-state.labels <labels>)
-	(<dum> ^name dummy)
-	(<o> ^needs-evaluation yes)
+	(state <s> ^operator (<dum> ^name dummy) +
+				^operator (<o> ^needs-evaluation yes) +)
 -->
 	(<s> ^operator <dum> > <o>
 		^operator <dum> < <o>)
@@ -40,29 +38,18 @@ sp {approve*non-restricted*actions
 	:o-support
 	(state <s> ^operator <o> + ^top-state.labels <labels>)
 	(<labels> ^name action-labels) 
-	(<o> ^actions <act> -^changed yes -^name dummy)
-	-{(<o> ^actions (^<action-name> <anything>))
+	(<o> ^name execution-action -^changed yes -^name dummy)
+	-{(<o> ^action.execution-operator.name (^<action-name> <anything>))
 		(<labels> -^<action-name> ok)}
 -->
 	(<o> ^evaluated success)}
 
 #If all operators have been evaluated, approve the operators that were a success
 sp {approve*if*success
-	(state <s> ^operator <o> +)
-	(<o> ^evaluated success)
+	(state <s> ^operator (<o> ^evaluated success) +)
 	-(<s> ^operator (-^evaluated ^name execute-action) +)
 -->
 	(<o> ^approved yes)}
-
-#sp {reject*failures
-#	(state <s> ^operator (<o> ^evaluated failure -^name dummy) +)
-#-->
-#	(<o> ^rejected yes)}
-
-#sp {reject
-#	(state <s> ^operator <o> (^rejected yes) +)
-#-->
-#	(<s> ^operator <o> -)}
 
 sp {wait*to*approve*auto-successes
 	(state <s> ^operator <o> +
@@ -72,22 +59,23 @@ sp {wait*to*approve*auto-successes
 -->
 	(<s> ^operator <o> -)}
 
-sp {remove-problems
-	:o-support
-	(state <s> ^operator <o> + ^top-state.labels <labels>)
-	-(<s> ^operator (-^evaluated failure) +)
-	(<o> ^evaluated failure ^actions <a>)
-	(<labels> ^name action-labels ^<action-name> problem -^<non-problem> problem)
-	(<a> ^<action-name> <anything> ^<non-problem> <something>)
--->
-	(<o> ^changed yes)
-	(<a> ^<action-name> <anything> -)}
-
-sp {remove-evaluation
-	:o-support
-	(state <s> ^operator <o> +)
-	(<o> ^changed yes ^evaluated failure)
--->
-	(<o> ^changed yes -)
-	(<o> ^rejected yes -)
-	(<o> ^evaluated failure -)}	
+#Not sure how to do this with rosie yet...
+#sp {remove-problems
+#	:o-support
+#	(state <s> ^operator <o> + ^top-state.labels <labels>)
+#	-(<s> ^operator (-^evaluated failure) +)
+#	(<o> ^evaluated failure ^actions <a>)
+#	(<labels> ^name action-labels ^<action-name> problem -^<non-problem> problem)
+#	(<a> ^<action-name> <anything> ^<non-problem> <something>)
+#-->
+#	(<o> ^changed yes)
+#	(<a> ^<action-name> <anything> -)}
+#
+#sp {remove-evaluation
+#	:o-support
+#	(state <s> ^operator <o> +)
+#	(<o> ^changed yes ^evaluated failure)
+#-->
+#	(<o> ^changed yes -)
+#	(<o> ^rejected yes -)
+#	(<o> ^evaluated failure -)}	
