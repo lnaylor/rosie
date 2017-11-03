@@ -1,7 +1,7 @@
 
 ### Use selection for all choice multiple, impasses
 
-sp {selection*elaborate*name*selection
+sp {selection*elaborate*name*governor-selection
    :default
    (state <s> ^choices multiple ^superstate.need-dummy yes)
 -->
@@ -203,35 +203,17 @@ sp {selection*select*required-success-evaluation-becomes-required-preference
 #   (<ss> ^operator <o1> >)}
 
 #LMN
-sp {selection*select*failure-evaluation-becomes-reject-preference
-   :default
-   (state <s> ^name governor-selection
-				^item-count { <> 2 <item-count> }
-              ^superstate <ss>
-              ^evaluation <e1>)
-   (<ss> ^desired <e>)
-   (<e1> ^symbolic-value << lose failure >>
-         ^desired <e>
-         ^superoperator <o1>)
--->
-	(<o1> ^rejected yes)}	
-#   (<ss> ^operator <o1> -)}
-
-#LMN
-sp {selection*select*failure-evaluation-becomes-reject-preference*last-one
-   :default
-   (state <s> ^name governor-selection
-#				^item-count 2
-              ^superstate <ss>
-              ^evaluation <e1>)
-	-(<s> ^item (-^evaluated))
-   (<ss> ^desired <e>)
-   (<e1> ^symbolic-value << lose failure >>
-         ^desired <e>
-         ^superoperator <o1>)
--->
-	(<o1> ^rejected yes)}
-#   (<ss> ^operator <o1> -)}
+#sp {selection*select*failure-evaluation-becomes-reject-preference
+#   :default
+#   (state <s> ^name governor-selection
+#              ^superstate <ss>
+#              ^evaluation <e1>)
+#   (<ss> ^desired <e>)
+#   (<e1> ^symbolic-value << lose failure >>
+#         ^desired <e>
+#         ^superoperator <o1>)
+#-->
+#	(<ss> operator <o1> -)}
 
 ## No chunking over exhaustion-failure
 sp {selection*select*exhaustion-failure-evaluation-becomes-reject-preference

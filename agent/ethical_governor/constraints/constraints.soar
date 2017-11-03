@@ -2,19 +2,24 @@ smem --set learning on
 
 smem --add {
 	(<c> ^situation rosie ^name constraints ^labels <labels> ^constraint <c01>)
-	(<labels> ^name action-labels)
-	
+	(<labels> ^name action-labels ^op_go-to1 ok)
 #	(<c01> ^test false)	
 #	(<c01> ^top-state <ts>)
 
-	(<c01> ^world <w>)
-	
-	(<w> ^robot <r>)
-	(<r> ^ current-location <loc>)
-	(<loc> ^handle loc-kitchen1)
+	(<c01> ^operator <op> ^world <w>) 
 
-#	(<w> ^objects <objs>)
-#	(<objs> ^object <o>)
+	(<op> ^arg1 <arg>)
+	(<arg> ^id <o>)
+	
+#	(<w> ^robot <r>)
+#	(<r> ^current-location <loc>)
+#	(<loc> ^handle loc-kitchen1)
+
+	(<w> ^objects <objs>)
+	(<objs> ^object <o>) 
+	(<o> ^predicates <p>)
+	(<p> ^arm-status not-grabbed)
 #	(<o> ^handle box1_1 ^predicates <p>)
 #	(<p> ^color red1 ^arm-status grabbed)
+
 }

@@ -38,8 +38,8 @@ sp {approve*non-restricted*actions
 	:o-support
 	(state <s> ^operator <o> + ^top-state.labels <labels>)
 	(<labels> ^name action-labels) 
-	(<o> ^name execution-action -^changed yes -^name dummy)
-	-{(<o> ^action.execution-operator.name (^<action-name> <anything>))
+	(<o> ^name execute-action -^changed yes -^name dummy)
+	-{(<o> ^action.execution-operator.name <action-name>)
 		(<labels> -^<action-name> ok)}
 -->
 	(<o> ^evaluated success)}
