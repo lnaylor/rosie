@@ -1,5 +1,6 @@
 sp {learn-copy-action-elaboration-rule*elaborate*problem-space
    (state <s> ^name learn-copy-action-elaboration-rule)
+	(<s> -^evaluate-state.superstate.name governor-selection) #LMN
 -->
    (<s> ^default-problem-space no
         ^problem-space <ps>)

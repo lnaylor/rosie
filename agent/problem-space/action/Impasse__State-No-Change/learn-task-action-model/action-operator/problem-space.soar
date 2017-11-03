@@ -8,6 +8,7 @@ sp {learn-task-action-model-substate*elaborate*problem-space
 sp {learn-task-action-model-substate*elaborate*learning*use*chunking
    (state <s> ^name learn-task-action-model-substate
               ^problem-space.learning <l>)
+	(<s> -^evaluate-state.superstate.name governor-selection) #LMN
 -->
    (<l> ^use chunking)
 }
