@@ -1,4 +1,5 @@
 sp {check-constraint*level-one*add-candidate
+	:i-support
 	(state <s> ^name evaluate-operator 
 				^constraint <c>
 				^<one> <state-object>)
@@ -19,6 +20,7 @@ sp {check-constraint*level-one*add-candidate
 	(<const-object> ^candidate <state-object>)}
 
 sp {check-constraint*level-two*add-candidate
+	:i-support
 	(state <s> ^name evaluate-operator 
 				^constraint <c>
 				^<one> <state-parent>)
@@ -43,6 +45,7 @@ sp {check-constraint*level-two*add-candidate
 	(<const-object> ^candidate <state-object>)}
 
 sp {check-constraint*level-three*add-candidate
+	:i-support
 	(state <s> ^name evaluate-operator 
 				^constraint <c>
 				^<one>.<two> <state-parent>)
@@ -67,6 +70,7 @@ sp {check-constraint*level-three*add-candidate
 	(<const-object> ^candidate <state-object>)}
 
 sp {check-constraint*level-four*add-candidate
+	:i-support
 	(state <s> ^name evaluate-operator 
 				^constraint <c>
 				^<one>.<two>.<three> <state-parent>)
@@ -91,6 +95,7 @@ sp {check-constraint*level-four*add-candidate
 	(<const-object> ^candidate <state-object>)}
 
 sp {check-constraint*level-five*add-candidate
+	:i-support
 	(state <s> ^name evaluate-operator 
 				^constraint <c>
 				^<one>.<two>.<three>.<four> <state-parent>)

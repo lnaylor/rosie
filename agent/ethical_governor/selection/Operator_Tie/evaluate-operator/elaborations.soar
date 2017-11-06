@@ -7,28 +7,28 @@
 ### have also been generalized.
 
 
-sp {evaluate-operator*elaborate*state*desired
-   :default
-   (state <s> ^impasse no-change
-              ^attribute operator
-             -^problem-space.no-local-negations <nln>
-              ^superstate.operator <so>)
-   (<so>  -^default-desired-copy yes
-           ^name evaluate-operator
-           ^evaluation.desired <d>)
--->
-   (<s> ^desired <d>)}
-
-sp {evaluate-operator*elaborate*state*desired*nln
-   :default
-   (state <s> ^impasse no-change
-              ^attribute operator
-              ^problem-space.no-local-negations <nln>
-              ^superstate.operator <so>)
-   (<so>   ^name evaluate-operator # ddc is assumed no with nln
-           ^evaluation.desired <d>)
--->
-   (<s> ^desired <d>)}
+#sp {evaluate-operator*elaborate*state*desired
+#   :default
+#   (state <s> ^impasse no-change
+#              ^attribute operator
+#             -^problem-space.no-local-negations <nln>
+#              ^superstate.operator <so>)
+#   (<so>  -^default-desired-copy yes
+#           ^name evaluate-operator
+#           ^evaluation.desired <d>)
+#-->
+#   (<s> ^desired <d>)}
+#
+#sp {evaluate-operator*elaborate*state*desired*nln
+#   :default
+#   (state <s> ^impasse no-change
+#              ^attribute operator
+#              ^problem-space.no-local-negations <nln>
+#              ^superstate.operator <so>)
+#   (<so>   ^name evaluate-operator # ddc is assumed no with nln
+#           ^evaluation.desired <d>)
+#-->
+#   (<s> ^desired <d>)}
 
 sp {evaluate-operator*elaborate*state*name
    :default

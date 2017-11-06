@@ -51,7 +51,7 @@ sp {elaborate*action*simulation*complete
 
 sp {elaborate*match*at-least*one*object
 	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
-	(<ss> ^constraint <c> ^name evaluate-operator ^action-completed yes)
+	(<ss> ^constraint <c> ^name evaluate-operator)
 	(<c> ^object <obj>)
 	-(<c> ^object (-^counterpart))
 	-(<c> ^object (-^counterpart yes))
