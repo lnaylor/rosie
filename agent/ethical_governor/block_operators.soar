@@ -74,6 +74,18 @@ sp {wait*to*approve*auto-successes
 -->
 	(<s> ^operator <o> -)}
 
+sp {reject*dummy
+	(state <s> ^operator (<dum> ^name dummy) +)
+	-(<s> ^operator (-^evaluated) +)
+-->
+	(<s> ^operator <dum> -)}
+
+#sp {reject*others*until*all-evaluated
+#	(state <s> ^operator (<o> -^name remove-start-of-execution-flag -^name dummy -^action-handle <ah>) +)
+#	(<s> ^operator (<o2> ^action-handle <ah2> -^evaluated) +)
+#-->
+#	(<s> ^operator <o> -)}
+
 #Not sure how to do this with rosie yet...
 #sp {remove-problems
 #	:o-support

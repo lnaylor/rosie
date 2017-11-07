@@ -1,21 +1,21 @@
 source block_operators.soar
 source constraint-retrieval.soar
-#source operator-evaluations.soar
-#source top-state_additions.soar
-#source rosie_additions.soar
-#
+source operator-evaluations.soar
+source top-state_additions.soar
+source rosie_additions.soar
+
 pushd constraint-checking
-#source add-candidates.soar
-#source add-objects.soar
-#source add-parent-candidates.soar
-#source check-neq.soar
-#source evaluate-constraints.soar
+source add-candidates.soar
+source add-objects.soar
+source add-parent-candidates.soar
+source check-neq.soar
+source evaluate-constraints.soar
 popd
-#
+
 pushd constraints
 source constraints_source.soar
 popd
-#
+
 pushd selection
 source selection_source.soar
 popd

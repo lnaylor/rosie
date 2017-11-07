@@ -7,6 +7,7 @@ sp {action-space*execute*if*child-action*reject*all*others
               ^operator { <o2> <> <o1> } +)
    (<a> ^execution-operator <o1>
        -^action-source instruction)
+	-(<o2> ^name dummy) #LMN
 -->
    (<s> ^operator <o2> -)
 }

@@ -72,7 +72,7 @@ sp {elaborate*match*no-objects
 
 sp {elaborate*success*at-least-one*object
 	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
-	(<ss> ^constraint <c> ^action-completed yes)
+	(<ss> ^constraint <c>) # ^action-completed yes)
 	(<c> ^object <obj>)
 	-(<c> ^object (-^counterpart))
 	(<c> ^object (-^counterpart yes))
@@ -83,7 +83,7 @@ sp {elaborate*success*at-least-one*object
 
 sp {elaborate*success*no*objects
 	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
-	(<ss> ^constraint <c> ^action-completed yes)
+	(<ss> ^constraint <c>) #^action-completed yes)
 	-(<c> ^object <obj>)
 	(<c> ^rules.<name> <something>)
 	-(<ss> ^<name> <something>)
@@ -94,7 +94,7 @@ sp {elaborate*success*no*objects
 
 sp {elaborate*success*with-neq
 	(state <s> ^impasse no-change ^attribute state ^evaluate-state <ss>)
-	(<ss> ^constraint <c> ^action-completed yes)
+	(<ss> ^constraint <c>)# ^action-completed yes)
 	-(<c> ^object (-^counterpart))
 	(<c> ^rules (^neq (-^neq-satisfied yes)))
 	-{(<ss> ^operator (<op> ^simulated yes) +)

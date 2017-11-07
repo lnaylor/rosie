@@ -1,6 +1,8 @@
 # execute-action problem-space
 sp {execute-action*elaborate*problem-space
    (state <s> ^name execute-action)
+	-(<s> ^evaluate-state.superstate.name governor-selection)#LMN
+	-(<s> ^name evaluate-operator)
 -->
    (<s> ^problem-space <ps>)
    (<ps> ^name action
