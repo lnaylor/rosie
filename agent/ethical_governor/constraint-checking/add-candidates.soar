@@ -3,7 +3,7 @@ sp {check-constraint*level-one*add-candidate
 	(state <s> ^name evaluate-operator 
 				^constraint <c>
 				^<one> <state-object>)
-	(<c> ^rules.<one> <const-object>)
+	(<c> ^rules.{ <> duplicate-of <one> } <const-object>)
 	
 	-{(<const-object> ^<child> { <=> <c> <object> })
 	-(<s> ^top-state.reserved-words.word <child>)

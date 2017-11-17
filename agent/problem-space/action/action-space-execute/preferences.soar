@@ -10,6 +10,7 @@ sp {action-space*execute*if*child-action*reject*all*others
 	-(<o2> ^name dummy) #LMN
 -->
    (<s> ^operator <o2> -)
+	(<o2> ^rejected-from-this yes)
 }
 
 # Copy the action to push it onto the stack, reject others

@@ -9,6 +9,51 @@ sp {block*unchecked-operator
 -->
 	(<s> ^operator <o> -)}
 
+sp {governor*elaborate*action-stack
+	(state <s> ^top-state.action-stack <stack>
+			^superstate.name governor-selection
+			-^name execute-action)
+-->
+	(<s> ^action-stack <stack>)}
+
+sp {governor*child-action*thing
+	(state <s> -^name execute-action
+				^child-action <a>
+				^superstate <ss>)
+	(<ss> ^operator <o> +)
+	(<o> ^evaluated success)
+	(<a> ^execution-operator <o1>)
+	(<s> ^operator { <o2> <> <o1> } +)
+	-(<o2> ^name dummy)
+-->
+	(<s> ^operator <o2> -)
+	(<o2> ^rejected-from governor)}
+
+sp {ohmygod*reject
+	(state <s> ^operator <o> +)
+	(<o> ^rejected-from governor)
+-->
+	(<s> ^operator <o> -)}
+
+#sp {reject*others*while*evaluating
+#	:i-support
+#	(state <s> ^operator <o> ^superstate <ss>)
+#	(<o> ^name evaluate-operator ^superoperator <so>)
+#	(<so> -^evaluated)
+#	(<ss> ^operator { <o2> <> <so> } +)
+#	(<o2> -^name dummy)
+#-->
+#	(<ss> ^operator <o2> -)}
+#
+#sp {reject*please
+#	(state <s> ^name governor-selection ^superstate <ss>)
+#	(<ss> ^operator <o> +)
+#	-(<o> ^name dummy)
+#	-(<s> ^item <o>)
+#-->
+#	(<ss> ^operator <o> -)}
+				
+
 #If there is a proposed execute-action operator that hasn't been evaluated, flag need for dummy operator
 #sp {need*dummy
 #	(state <s> ^operator <o> +

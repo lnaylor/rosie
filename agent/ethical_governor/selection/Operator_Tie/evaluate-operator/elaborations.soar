@@ -66,7 +66,7 @@ sp {evaluate-operator*elaborate*state*look-ahead-operator*copy
 -->
    (<s> ^look-ahead-operator <copy-o>)
    (<s> ^untried-tied-operator <copy-o>) # SBW 5/7/07-- -^tried-tied-operator -> ^untried-tied-operator
-   (<copy-o> ^duplicate-of <o>)}
+   (<copy-o> ^simulated yes ^duplicate-of <o>)} #LMN
 
 
 ## Create pointer for uniform access even in no copy
