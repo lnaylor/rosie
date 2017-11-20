@@ -216,18 +216,19 @@ sp {selection*select*required-success-evaluation-becomes-required-preference
 #	(<ss> operator <o1> -)}
 
 ## No chunking over exhaustion-failure
-sp {selection*select*exhaustion-failure-evaluation-becomes-reject-preference
-   :default
-   (state <s> ^name governor-selection
-              ^quiescence t
-              ^superstate <ss>
-              ^evaluation <e1>)
-   (<ss> ^desired <e>)
-   (<e1> ^symbolic-value exhaustion-failure
-         ^desired <e>
-         ^superoperator <o1>)
--->
-   (<ss> ^operator <o1> -)}
+#LMN
+#sp {selection*select*exhaustion-failure-evaluation-becomes-reject-preference
+#   :default
+#   (state <s> ^name governor-selection
+#              ^quiescence t
+#              ^superstate <ss>
+#              ^evaluation <e1>)
+#   (<ss> ^desired <e>)
+#   (<e1> ^symbolic-value exhaustion-failure
+#         ^desired <e>
+#         ^superoperator <o1>)
+#-->
+#   (<ss> ^operator <o1> -)}
 
 sp {selection*select*prohibit-failure-evaluation-becomes-prohibit-preference
    :default

@@ -11,7 +11,7 @@ smem --add {
 	
 	(<w> ^robot <r>)
 	(<r> ^current-location <loc>)
-	(<loc> ^handle loc-south-hall1)
+	(<loc> ^handle loc-southe-hall1)
 
 #	(<w> ^objects <objs>)
 #	(<objs> ^object <o>) 

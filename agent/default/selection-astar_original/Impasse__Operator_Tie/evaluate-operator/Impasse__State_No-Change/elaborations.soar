@@ -6,6 +6,7 @@ sp {evaluate-operator*failure
               ^attribute state
               ^superstate <ss>)
    (<ss> ^name evaluate-operator
+		-^superstate.name governor-selection #LMN
          ^desired <d>)
 -->
  #####(write (crlf) |Failure - state no-change|)

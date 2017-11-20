@@ -105,6 +105,7 @@ sp {default*select*reject*conflict
 	         ^choices none
 	         ^superstate <s2>
 	         ^quiescence t)
+	-(<o> ^evaluated success)#LMN
    -->
    (<s1> ^operator <o> -)}
 

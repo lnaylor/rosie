@@ -11,7 +11,7 @@ sp {elaborate*item*eval
 sp {elaborate*evaluated
 	:o-support
 	(state <s> ^operator <o> +)
-	(<o> ^eval <sym>)
+	(<o> ^eval { <> exhaustion-failure <sym> })
 -->
 	(<o> ^evaluated <sym>)}
 

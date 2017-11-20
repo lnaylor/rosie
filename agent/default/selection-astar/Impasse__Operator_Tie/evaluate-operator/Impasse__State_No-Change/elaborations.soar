@@ -6,6 +6,7 @@ sp {evaluate-operator*failure
               ^attribute state
               ^superstate <ss>)
    (<ss> ^name evaluate-operator
+		-^superstate.name governor-selection #LMN
         -^learning-chunking-rule true # AM: If the SNC was purposeful for learning a chunk, don't call it a failure yet
          ^desired <d>)
 -->
