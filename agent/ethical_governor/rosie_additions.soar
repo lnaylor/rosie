@@ -9,6 +9,7 @@ sp {governor*elaborate*problem-space
 			^world <world>
 			^action <action>)}
 
+
 #sp {evaluate-operator*deep-copy-world
 #	(state <s> ^name evaluate-operator ^superstate.name governor-selection ^top-state.world <w>)
 #-->
@@ -40,9 +41,10 @@ sp {governor*elaborate*problem-space
 #	(<s> ^operator <op> +)
 #	(<op> ^simulated yes)}
 #
-#sp {pop*failed*actions
-#	(state <s> ^operator <o> +)
-#	(<s> ^action-stack.changes <c>)
-#	(<o> ^evaluated failure ^action <a>)
-#-->
-#	(<c> ^pop <a>)}
+sp {pop*failed*actions
+	(state <s> ^operator <o> + ^top-state <ts>)
+	(<ts> ^action-stack.changes <c> ^operator <exec-op>)
+	(<o> ^evaluated failure -^name dummy)
+	(<exec-op> ^action <a>)
+-->
+	(<c> ^pop <a>)}

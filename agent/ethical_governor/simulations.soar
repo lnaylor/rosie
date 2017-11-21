@@ -27,6 +27,31 @@ sp {action*apply*go-to-location*do*action-model*remove*old*location
 -->
    (<robot> ^current-location <old-loc> -)
 }
+
+sp {action*apply*go-to-location*do*action-model*add*new*location
+   (state <s> ^problem-space.name action
+              ^problem-space.execution-type internal
+              ^operator <o>
+              ^world.robot <robot>)
+   (<o> ^name op_go-to-next-waypoint1
+        ^arg1.id <new-loc>)
+-->
+   (<robot> ^current-location <new-loc>)
+}
+
+# remove the old current-location
+#   and mark it not visible
+sp {action*apply*go-to-location*do*action-model*remove*old*location
+   (state <s> ^problem-space.name action
+              ^problem-space.execution-type internal
+              ^operator <o>
+              ^world.robot <robot>)
+   (<o> ^name op_go-to-next-waypoint1
+        ^arg1.id <new-loc>)
+   (<robot> ^current-location { <old-loc> <> <new-loc> })
+-->
+   (<robot> ^current-location <old-loc> -)
+}
 #
 ## Any objects that are in the new location are marked as visible
 #sp {action*apply*go-to-location*do*action-model*mark*new*object*visible
