@@ -11,7 +11,7 @@ smem --add {
 	
 	(<w> ^robot <r>)
 	(<r> ^current-location <loc>)
-	(<loc> ^handle wp0090)
+	(<loc> ^handle wp05)
 
 #	(<w> ^objects <objs>)
 #	(<objs> ^object <o>) 

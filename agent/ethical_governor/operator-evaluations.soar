@@ -32,19 +32,3 @@ sp {elaborate*failure
 	(<o> ^name evaluate-operator ^evaluation <e>)
 -->
 	(<e> ^symbolic-value failure)}
-
-#sp {ignore*dummy*all*evaluated
-#	(state <s> ^operator <o> +)
-#	(<o> ^name dummy -^round-two yes)
-#	-(<s> ^operator (^name { <> removed-problems <nm> } -^evaluated ) +)
-#-->
-#	(<s> ^operator <o> -)
-#	(<o> ^used yes)}
-
-#sp {ignore*dummy*all*evaluated-round2
-#	(state <s> ^operator <o> +)
-#	(<o> ^name dummy ^round-two yes)
-#	-(<s> ^operator ( -^evaluated ) +)
-#-->
-#	(<s> ^operator <o> -)
-#	(<o> ^used yes)}

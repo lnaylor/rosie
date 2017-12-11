@@ -9,38 +9,6 @@ sp {governor*elaborate*problem-space
 			^world <world>
 			^action <action>)}
 
-
-#sp {evaluate-operator*deep-copy-world
-#	(state <s> ^name evaluate-operator ^superstate.name governor-selection ^top-state.world <w>)
-#-->
-#	(<s> ^deep-copy-world <dcw>)
-#	(<dcw> ^source <w>)}
-#
-#sp {governor-problem-space*elaborate*copy-action
-#	(state <s> ^name evaluate-operator
-#				^problem-space <ps>
-#				^superstate.operator.superoperator.action.execution-operator <op>
-#				^deep-copy-world.copy-objects-map <map>)
-#	(<ps> ^name action
-#			-^action-space waypoint-search)
-#-->
-#	(<s> ^copy-action <ca>)
-#	(<ca> ^source-action <op>
-#			^destination <s>
-#			^copy-name action-operator
-#			^object-map <map>)}
-#
-#sp {copy*deep-copy*world
-#	(state <s> ^deep-copy-world.copy <copy> ^name evaluate-operator ^superstate.name governor-selection)
-#-->
-#	(<s> ^world <copy>)}
-#
-#sp {governor*propose*simulated-action
-#	(state <s> ^superstate.name governor-selection ^name evaluate-operator ^action-operator <op>)
-#-->
-#	(<s> ^operator <op> +)
-#	(<op> ^simulated yes)}
-#
 sp {pop*failed*actions
 	(state <s> ^operator <o> + ^top-state <ts>)
 	(<ts> ^action-stack.changes <c> ^operator <exec-op>)
@@ -48,3 +16,10 @@ sp {pop*failed*actions
 	(<exec-op> ^action <a>)
 -->
 	(<c> ^pop <a>)}
+
+sp {pop*left-over*successes
+	(state <s> ^superstate nil ^action-stack <a-stack> ^operator.name satisfy-purpose)
+	(<a-stack> ^actions.action <act> ^changes <c>)
+	(<act> ^execution-operator.evaluated success)
+-->
+	(<c> ^pop <act>)}

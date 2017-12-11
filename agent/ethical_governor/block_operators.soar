@@ -1,9 +1,3 @@
-# if an execute-action operator is proposed that has not been approved, reject the operator
-#sp {block*unchecked-operator
-#	(state <s> ^operator (<o> ^name execute-action -^approved) +)
-#-->
-#	(<s> ^operator <o> -)}
-
 sp {block*unchecked-operator
 	(state <s> ^operator (<o> ^action-handle <ah> -^approved) +)
 -->
@@ -34,36 +28,6 @@ sp {ohmygod*reject
 	(<o> ^rejected-from governor)
 -->
 	(<s> ^operator <o> -)}
-
-#sp {reject*others*while*evaluating
-#	:i-support
-#	(state <s> ^operator <o> ^superstate <ss>)
-#	(<o> ^name evaluate-operator ^superoperator <so>)
-#	(<so> -^evaluated)
-#	(<ss> ^operator { <o2> <> <so> } +)
-#	(<o2> -^name dummy)
-#-->
-#	(<ss> ^operator <o2> -)}
-#
-#sp {reject*please
-#	(state <s> ^name governor-selection ^superstate <ss>)
-#	(<ss> ^operator <o> +)
-#	-(<o> ^name dummy)
-#	-(<s> ^item <o>)
-#-->
-#	(<ss> ^operator <o> -)}
-				
-
-#If there is a proposed execute-action operator that hasn't been evaluated, flag need for dummy operator
-#sp {need*dummy
-#	(state <s> ^operator <o> +
-#				-^name evaluate-operator
-#				^top-state.labels <lables>)
-#	(<o> -^evaluated ^name execute-action ^action.execution-operator.name <action-name>)
-#	(<labels> -^<action-name> ok)
-#-->
-#	(<o> ^needs-evaluation yes)
-#	(<s> ^need-dummy yes)}
 
 sp {need*dummy
 	(state <s> ^operator <o> +
@@ -124,30 +88,3 @@ sp {reject*dummy
 	-(<s> ^operator (-^evaluated) +)
 -->
 	(<s> ^operator <dum> -)}
-
-#sp {reject*others*until*all-evaluated
-#	(state <s> ^operator (<o> -^name remove-start-of-execution-flag -^name dummy -^action-handle <ah>) +)
-#	(<s> ^operator (<o2> ^action-handle <ah2> -^evaluated) +)
-#-->
-#	(<s> ^operator <o> -)}
-
-#Not sure how to do this with rosie yet...
-#sp {remove-problems
-#	:o-support
-#	(state <s> ^operator <o> + ^top-state.labels <labels>)
-#	-(<s> ^operator (-^evaluated failure) +)
-#	(<o> ^evaluated failure ^actions <a>)
-#	(<labels> ^name action-labels ^<action-name> problem -^<non-problem> problem)
-#	(<a> ^<action-name> <anything> ^<non-problem> <something>)
-#-->
-#	(<o> ^changed yes)
-#	(<a> ^<action-name> <anything> -)}
-#
-#sp {remove-evaluation
-#	:o-support
-#	(state <s> ^operator <o> +)
-#	(<o> ^changed yes ^evaluated failure)
-#-->
-#	(<o> ^changed yes -)
-#	(<o> ^rejected yes -)
-#	(<o> ^evaluated failure -)}	
